@@ -11,7 +11,8 @@ class Evaluator:
             elapsed_time = v[0]
             process_time = v[1]
             deadline = v[2]
-            tardiness = min(0, deadline - (elapsed_time + process_time))
+            # tardiness = min(0, deadline - (elapsed_time + process_time))
+            tardiness = min(0, deadline - process_time)
             self.total_income += v[4] + min(0, tardiness * v[3])
 
         return self.total_income

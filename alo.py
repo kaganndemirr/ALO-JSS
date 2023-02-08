@@ -10,14 +10,17 @@ logging.basicConfig(level=logging.INFO)
 
 def update_job_list(initial_solution_arg):
     local_job_dict = copy.deepcopy(initial_solution_arg)
+    local_job_dict_copy = copy.deepcopy(initial_solution_arg)
     dict_list = list(local_job_dict.items())
+    dict_list_copy = list(local_job_dict_copy.items())
     i = 0
     while i < len(dict_list):
         k = i
         if i != 0:
             j = i - 1
             while k < len(dict_list):
-                dict_list[k][1][0] = dict_list[j][1][1] + dict_list[k][1][0]
+                # dict_list[k][1][0] = dict_list[j][1][1] + dict_list[k][1][0]
+                dict_list[k][1][1] = dict_list[j][1][1] + dict_list_copy[k][1][1]
                 k += 1
         i += 1
 
@@ -92,10 +95,12 @@ class ALO:
 
     def roulette_wheel_selection(self):
         integer_list = []
-        while len(integer_list) < len(list(self.job_dict.values())[0]):
-            index = roulette_wheel(len(list(self.job_dict.values())[0]))
+        while len(integer_list) != len(list(self.job_dict)):
+            index = roulette_wheel(len(list(self.job_dict)))
             if index not in integer_list:
                 integer_list.append(index)
 
         return integer_list
+
+    
 
